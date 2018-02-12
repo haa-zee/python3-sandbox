@@ -11,6 +11,15 @@ import time
 		
 
 def start(top):
+
+	'''
+	Az "a" változó egy fix hosszúságú FIFO stack utánzata
+	
+	Ennek a tartalmát rajzolom a "canvas"-ra, rajzolás után az első elemet törlöm,
+	majd hozzáfűzök a végéhez egy újat.
+	
+	'''
+	
 	
 	a=[ randint(0,800) for n in range(100) ]
 	
@@ -20,6 +29,9 @@ def start(top):
 	print("Started")
 
 	prev=400
+	'''
+		Kirajzolom 100x az "a" tömb aktuális értékeit
+	'''
 	for j in range(100):
 		canvas.delete("all")
 		for i in range(0,99):
@@ -32,6 +44,7 @@ def start(top):
 		a.pop(0)
 		a.append(randint(0,800))
 		
+		# Ez csak arra kell, hogy folyamatosnak tűnjön a scrollozás. 
 		for i in range(10):
 			canvas.move("all",-1,0)
 			canvas.update()
