@@ -22,7 +22,7 @@ def process_input(socket_object):
             print("Child - received data: {}".format(answ))
             socket_object.send(b"Good bye")
             answ = ""
-            part_of_answer = socket_object.recv(512)
+        part_of_answer = socket_object.recv(512)
     socket_object.close()
     print("Konyec")
     return
