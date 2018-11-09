@@ -5,15 +5,17 @@ import os, socket, sys, signal
 def process_input(socket_object):
     answ = ""
     part_of_answer = socket_object.recv(512)
-    # ## ---!!! ez itt valamiért nem működik, nem lép ki, ha 0 hosszúságú adatot küld a kliens,
-    # ## és akkor sem, ha üres stringet, hiába próbálkoztam a különböző variációkkal a feltételekben.
+    # ## *** törölve *** ---!!! ez itt valamiért nem működik, nem lép ki, ha 0 hosszúságú adatot küld a kliens,
+    # ## *** törölve *** és akkor sem, ha üres stringet, hiába próbálkoztam a különböző variációkkal a feltételekben.
     # Valójában arról van szó, hogy a kliensnek kell lezárnia a saját oldalán close()-zal a
     # socketet, ekkor kap a szerveroldali recv() egy nulla hosszúságú választ.
     # DE! Ha kétirányú a kommunikáció, akkor a kliensnek is ki kell olvasni a szerver által
     # küldött adatokat a socket-ről, mielőtt lezárja, különben a szerver oldalon jön egy
     # hiba (connection reset by peer vagy valami hasonló). Ha rendesen kiolvassa mindkét oldal
     # a nekik szóló üzeneteket és így zárja a kliens a socketet, akkor nincs gond.
+    # Nézd meg a socket.shutdown-t is!!
     #
+
     while part_of_answer != b"":
         print(".  {} {}".format(len(part_of_answer), type(part_of_answer)))
         answ += part_of_answer.decode("UTF-8")
