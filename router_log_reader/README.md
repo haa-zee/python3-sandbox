@@ -1,4 +1,4 @@
-#Log reader/analyzer - again... :(
+# Log reader/analyzer - again... :(
 
 Naszóval, újra nekikezdek a dolognak, hátha most sem lesz belőle semmi. :)
 
