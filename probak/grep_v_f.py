@@ -8,11 +8,17 @@ import sys
 
 
 class Filter:
+    """A grep -v -f ... unix/linux parancs feladatra szabott megvalósításának segédosztálya
+    Beolvassa a szűréshez használt regex listát a paraméterként kapott fájlból, elkészíti a
+    kifejezések lefordított (re.compile) változatát és ellenőrzi, hogy a paraméterként kapott
+    string illeszkedik-e valamely mintára"""
 
-    def __init__(self, ffile):
-        self.setup(ffile)
+    def __init__(self, filter_file_fd):
+        """filter_file_fd = a szűrő kifejezéseket tartalmazó file-hoz tartozó file descriptor"""
         self._filter_expressions = []  # Type: List[Any]
         self.regexps = []  # Type: List[Any]
+        self.setup(filter_file_fd)
+        return
 
     def setup(self, ffile):
         """ A "ffile" soraiból kiválogatja azokat a sorokat, amik nem #-kal kezdődnek
@@ -25,21 +31,13 @@ class Filter:
 
         # a fenti listából "lefordított" regex lista készítése
         self.regexps = list(map(lambda re_str: re.compile(re_str), self._filter_expressions))
+        return
 
     def is_matching(self, string):
         """A paraméterként kapott <string> ellenőrzése, hogy a self.regexps változóban tárolt
         minták közt van-e olyan, amelyikre illeszkedik."""
 
-        # result = list(filter(lambda a: a.search(string), self.regexps ))
-        # return len(result)==0
-        # A két fenti sor talán "pythonosabb", viszont iszonyat lassú és nem tudom, hogy lehetne
-        # gyorsítani rajta.
-        match = False
-        for i in self.regexps:
-            match = i.search(string)
-            if match:
-                break
-        return match
+        return any(r.search(string) for r in self.regexps)
 
 
 def start():
@@ -50,7 +48,7 @@ def start():
                         default=sys.stdin, nargs='?')
     args = parser.parse_args()
 
-    filter_object = Filter(ffile=args.file)
+    filter_object = Filter(filter_file_fd=args.file)
 
     with args.input_file as kernel_log:
         for next_line in kernel_log:
