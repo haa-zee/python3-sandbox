@@ -44,6 +44,7 @@ class AbuseIPDB():
 		return None
 
 	def bulk_report(self, ):
+		pass
 
 api_key = get_api_key()
 
