@@ -16,8 +16,9 @@ def reader(infile):
 
 
 def start():
-    open_by_file_type = {'text/plain': open, 'application/gzip': gzip.open}
     file_handle = None  # csak mert a pycharm pofázik, ha nincs egyértelműen definiálva a változó
+    open_by_file_type = {'text/plain': open, 'application/gzip': gzip.open}
+
     parser = argparse.ArgumentParser()
     parser.add_argument('file_list', nargs='*', help='log file(s) text/gzip')
     parsed_args = parser.parse_args()
