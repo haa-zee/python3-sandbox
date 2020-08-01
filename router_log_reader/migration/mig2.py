@@ -7,6 +7,9 @@ logban sincs olyan, hogy a router boot miatt a log a hibás (May 5 07) idővel k
 így az ilyen problémás esetekkel nem kell számolnom.
 
 Ami kb. biztosra vehető:
+- az archivált/rotált logok elnevezése: <facility>_yyyymmdd.gz (esetleg .gz nélkül is előfordul)
+A facility a syslog-ban használt elnevezés (kern, authpriv, user, daemon, cron, kern stb.), a yyyymmdd a logrotate
+futásának dátuma.
 - ahol 'May  5 07:' kezdetű sort találok, hogy kb. 20:1 eséllyel egy router reboot következménye
 - amennyiben az épp feldolgozás alatt álló fájl nevében *-20(18|19|20)05(..) mintát találok és a .. helyén
 álló két számjegyre igaz, hogy legalább 05, de max. 12 az értéke (a logrotate május 5. és 12. közt futott valamikor,
